@@ -16,60 +16,106 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Define constants
-if ( ! defined( 'RTJO_VERSION' ) ) {
-    define( 'RTJO_VERSION', '1.0.0' );
+if ( ! defined( 'REVETIJO_VERSION' ) ) {
+    define( 'REVETIJO_VERSION', '1.0.0' );
 }
-if ( ! defined( 'RTJO_PLUGIN_DIR' ) ) {
-    define( 'RTJO_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
+if ( ! defined( 'REVETIJO_PLUGIN_DIR' ) ) {
+    define( 'REVETIJO_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 }
-if ( ! defined( 'RTJO_PLUGIN_URL' ) ) {
-    define( 'RTJO_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
+if ( ! defined( 'REVETIJO_PLUGIN_URL' ) ) {
+    define( 'REVETIJO_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 }
 
 // Include necessary files
-require_once RTJO_PLUGIN_DIR . 'includes/helpers.php';
-require_once RTJO_PLUGIN_DIR . 'includes/shortcode.php';
-require_once RTJO_PLUGIN_DIR . 'includes/admin-settings.php';
+require_once REVETIJO_PLUGIN_DIR . 'includes/helpers.php';
+require_once REVETIJO_PLUGIN_DIR . 'includes/shortcode.php';
+require_once REVETIJO_PLUGIN_DIR . 'includes/admin-settings.php';
 
 /**
  * Handle activation
  */
-function rtjo_activate() {
+function revetijo_activate() {
     // Initialization logic if needed
 }
-register_activation_hook( __FILE__, 'rtjo_activate' );
+register_activation_hook( __FILE__, 'revetijo_activate' );
 
 /**
  * Enqueue scripts and styles
  */
-/**
- * Enqueue scripts and styles
- */
-function rtjo_enqueue_assets() {
-    wp_enqueue_style( 'rtjo-timer-style', RTJO_PLUGIN_URL . 'assets/css/timer.css', array(), RTJO_VERSION );
-    wp_enqueue_script( 'rtjo-timer-script', RTJO_PLUGIN_URL . 'assets/js/timer.js', array(), RTJO_VERSION, true );
+function revetijo_enqueue_assets() {
+    wp_enqueue_style( 'revetijo-timer-style', REVETIJO_PLUGIN_URL . 'assets/css/timer.css', array(), REVETIJO_VERSION );
+    wp_enqueue_script( 'revetijo-timer-script', REVETIJO_PLUGIN_URL . 'assets/js/timer.js', array(), REVETIJO_VERSION, true );
+    
+    // Output dynamic CSS
+    $defaults = array(
+        'primary_color' => '#0073aa',
+        'bg_color'      => '#f9f9f9',
+        'font_size'     => '2.5',
+        'border_radius' => '8'
+    );
+    $options = get_option( 'revetijo_settings', $defaults );
+    $options = wp_parse_args( $options, $defaults );
+
+    $primary = !empty($options['primary_color']) ? $options['primary_color'] : $defaults['primary_color'];
+    $bg      = !empty($options['bg_color']) ? $options['bg_color'] : $defaults['bg_color'];
+    $size    = !empty($options['font_size']) ? $options['font_size'] : $defaults['font_size'];
+    $radius  = !empty($options['border_radius']) ? $options['border_radius'] : $defaults['border_radius'];
+
+    $custom_css = "
+        :root {
+            --revetijo-primary-color: " . esc_attr( $primary ) . ";
+            --revetijo-bg-color: " . esc_attr( $bg ) . ";
+            --revetijo-font-size: " . esc_attr( $size ) . "em;
+            --revetijo-border-radius: " . esc_attr( $radius ) . "px;
+        }";
+    wp_add_inline_style( 'revetijo-timer-style', $custom_css );
 }
-add_action( 'wp_enqueue_scripts', 'rtjo_enqueue_assets' );
+add_action( 'wp_enqueue_scripts', 'revetijo_enqueue_assets' );
 
 /**
  * Enqueue admin assets
  */
-function rtjo_admin_assets( $hook ) {
+function revetijo_admin_assets( $hook ) {
     if ( 'toplevel_page_reveal-timer-jo' !== $hook ) {
         return;
     }
     wp_enqueue_style( 'wp-color-picker' );
-    wp_enqueue_script( 'rtjo-admin-js', RTJO_PLUGIN_URL . 'assets/js/admin.js', array( 'wp-color-picker' ), RTJO_VERSION, true );
+    wp_enqueue_style( 'revetijo-admin-style', REVETIJO_PLUGIN_URL . 'assets/css/admin.css', array(), REVETIJO_VERSION );
+    wp_enqueue_script( 'revetijo-admin-js', REVETIJO_PLUGIN_URL . 'assets/js/admin.js', array( 'wp-color-picker' ), REVETIJO_VERSION, true );
+    
+    // Dynamic CSS for admin preview
+    $defaults = array(
+        'primary_color' => '#0073aa',
+        'bg_color'      => '#f9f9f9',
+        'font_size'     => '2.5',
+        'border_radius' => '8'
+    );
+    $options = get_option( 'revetijo_settings', $defaults );
+    $options = wp_parse_args( $options, $defaults );
+
+    $primary = !empty($options['primary_color']) ? $options['primary_color'] : $defaults['primary_color'];
+    $bg      = !empty($options['bg_color']) ? $options['bg_color'] : $defaults['bg_color'];
+    $size    = !empty($options['font_size']) ? $options['font_size'] : $defaults['font_size'];
+    $radius  = !empty($options['border_radius']) ? $options['border_radius'] : $defaults['border_radius'];
+
+    $custom_css = "
+        :root {
+            --revetijo-primary-color: " . esc_attr( $primary ) . ";
+            --revetijo-bg-color: " . esc_attr( $bg ) . ";
+            --revetijo-font-size: " . esc_attr( $size ) . "em;
+            --revetijo-border-radius: " . esc_attr( $radius ) . "px;
+        }";
+    wp_add_inline_style( 'revetijo-admin-style', $custom_css );
 }
-add_action( 'admin_enqueue_scripts', 'rtjo_admin_assets' );
+add_action( 'admin_enqueue_scripts', 'revetijo_admin_assets' );
 
 /**
  * Register settings
  */
-function rtjo_register_settings() {
-    register_setting( 'rtjo_settings_group', 'wprt_settings', array(
+function revetijo_register_settings() {
+    register_setting( 'revetijo_settings_group', 'revetijo_settings', array(
         'type'              => 'array',
-        'sanitize_callback' => 'rtjo_sanitize_settings',
+        'sanitize_callback' => 'revetijo_sanitize_settings',
         'default'           => array(
             'primary_color' => '#0073aa',
             'bg_color'      => '#f9f9f9',
@@ -78,12 +124,12 @@ function rtjo_register_settings() {
         )
     ));
 }
-add_action( 'admin_init', 'rtjo_register_settings' );
+add_action( 'admin_init', 'revetijo_register_settings' );
 
 /**
  * Sanitize settings
  */
-function rtjo_sanitize_settings( $input ) {
+function revetijo_sanitize_settings( $input ) {
     $sanitized = array();
     
     if ( isset( $input['primary_color'] ) ) {
@@ -104,33 +150,3 @@ function rtjo_sanitize_settings( $input ) {
     
     return $sanitized;
 }
-
-/**
- * Output dynamic CSS
- */
-function rtjo_dynamic_css() {
-    $defaults = array(
-        'primary_color' => '#0073aa',
-        'bg_color'      => '#f9f9f9',
-        'font_size'     => '2.5',
-        'border_radius' => '8'
-    );
-    $options = get_option( 'wprt_settings', $defaults );
-    $options = wp_parse_args( $options, $defaults );
-
-    $primary = !empty($options['primary_color']) ? $options['primary_color'] : $defaults['primary_color'];
-    $bg      = !empty($options['bg_color']) ? $options['bg_color'] : $defaults['bg_color'];
-    $size    = !empty($options['font_size']) ? $options['font_size'] : $defaults['font_size'];
-    $radius  = !empty($options['border_radius']) ? $options['border_radius'] : $defaults['border_radius'];
-
-    echo '<style>
-        :root {
-            --wprt-primary-color: ' . esc_attr( $primary ) . ';
-            --wprt-bg-color: ' . esc_attr( $bg ) . ';
-            --wprt-font-size: ' . esc_attr( $size ) . 'em;
-            --wprt-border-radius: ' . esc_attr( $radius ) . 'px;
-        }
-    </style>';
-}
-add_action( 'wp_head', 'rtjo_dynamic_css' );
-add_action( 'admin_head', 'rtjo_dynamic_css' );

@@ -6,7 +6,7 @@
 
     $(function () {
         // Initialize color pickers
-        $('.wprt-color-field').wpColorPicker();
+        $('.revetijo-color-field').wpColorPicker();
     });
 
 })(jQuery);

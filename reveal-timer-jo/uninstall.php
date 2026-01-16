@@ -11,4 +11,4 @@ if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 }
 
 // Clean up any future settings or transients here if added
-// delete_option('wprt_settings');
+delete_option('revetijo_settings');

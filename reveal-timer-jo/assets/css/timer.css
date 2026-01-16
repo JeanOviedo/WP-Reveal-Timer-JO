@@ -2,34 +2,34 @@
  * WP Reveal Timer Styles
  */
 
-.wprt-timer-container {
+.revetijo-timer-container {
     padding: 20px;
-    background: var(--wprt-bg-color, #f9f9f9);
+    background: var(--revetijo-bg-color, #f9f9f9);
     border: 1px solid #ddd;
-    border-radius: var(--wprt-border-radius, 8px);
+    border-radius: var(--revetijo-border-radius, 8px);
     text-align: center;
     margin: 20px 0;
     transition: all 0.5s ease;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
 }
 
-.wprt-timer-header {
+.revetijo-timer-header {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 10px;
 }
 
-.wprt-timer-label {
+.revetijo-timer-label {
     font-size: 1.1em;
     font-weight: 600;
     color: #333;
 }
 
-.wprt-timer-countdown {
-    font-size: var(--wprt-font-size, 2.5em);
+.revetijo-timer-countdown {
+    font-size: var(--revetijo-font-size, 2.5em);
     font-weight: 700;
-    color: var(--wprt-primary-color, #0073aa);
+    color: var(--revetijo-primary-color, #0073aa);
     background: #fff;
     padding: 10px 20px;
     border-radius: 50px;
@@ -38,11 +38,11 @@
 }
 
 /* Reveal Animation */
-.wprt-timer-reveal {
-    animation: wprtFadeIn 0.8s forwards ease-in-out;
+.revetijo-timer-reveal {
+    animation: revetijoFadeIn 0.8s forwards ease-in-out;
 }
 
-@keyframes wprtFadeIn {
+@keyframes revetijoFadeIn {
     from {
         opacity: 0;
         transform: translateY(10px);

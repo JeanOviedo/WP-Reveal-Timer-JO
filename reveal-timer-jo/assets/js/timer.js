@@ -3,13 +3,13 @@
  */
 
 document.addEventListener('DOMContentLoaded', function() {
-    const timers = document.querySelectorAll('.wprt-timer-container');
+    const timers = document.querySelectorAll('.revetijo-timer-container');
 
     timers.forEach(function(timer) {
         let secondsLeft = parseInt(timer.getAttribute('data-seconds'));
-        const countdownElement = timer.querySelector('.wprt-timer-countdown');
-        const headerElement = timer.querySelector('.wprt-timer-header');
-        const contentElement = timer.querySelector('.wprt-timer-content');
+        const countdownElement = timer.querySelector('.revetijo-timer-countdown');
+        const headerElement = timer.querySelector('.revetijo-timer-header');
+        const contentElement = timer.querySelector('.revetijo-timer-content');
 
         if (!countdownElement) return;
 
@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function() {
         function revealContent() {
             headerElement.style.display = 'none';
             contentElement.style.display = 'block';
-            contentElement.classList.add('wprt-timer-reveal');
+            contentElement.classList.add('revetijo-timer-reveal');
             
             // Trigger a resize event to ensure compatibility with Elementor/Slick/etc
             window.dispatchEvent(new Event('resize'));

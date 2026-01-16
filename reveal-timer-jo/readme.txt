@@ -1,5 +1,5 @@
 === Reveal Timer JO ===
-Contributors: Jean Carlos Oviedo Lopez
+Contributors: jeankeeoviedo, Jean Carlos Oviedo Lopez
 Tags: countdown, reveal, timer, elementor, marketing
 Requires at least: 5.0
 Tested up to: 6.9

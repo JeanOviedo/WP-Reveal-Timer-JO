@@ -12,13 +12,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Sanitize label text
  */
-function rtjo_sanitize_label( $label ) {
+function revetijo_sanitize_label( $label ) {
     return sanitize_text_field( $label );
 }
 
 /**
  * Format seconds (optional utility)
  */
-function rtjo_format_seconds( $seconds ) {
+function revetijo_format_seconds( $seconds ) {
     return intval( $seconds );
 }

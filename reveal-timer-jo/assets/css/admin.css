@@ -1,0 +1,8 @@
+.revetijo-admin-wrap .card h2 { margin-top: 0; color: #2271b1; }
+.revetijo-admin-wrap .card h3 { border-bottom: 1px solid #eee; padding-bottom: 5px; margin-top: 25px; }
+.revetijo-admin-wrap code { font-size: 1.1em; color: #d63638; }
+/* Ensure preview styles are applied in admin */
+#revetijo-preview-container .revetijo-timer-container {
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
